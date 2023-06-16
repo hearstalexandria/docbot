@@ -1,0 +1,3 @@
+#!/bin/bash
+
+~/src/docbot/venv/bin/python3 ~/src/docbot/main.py
