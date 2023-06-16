@@ -26,6 +26,8 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+4. Delete sample documents from the `./documents` folder (i.e. `rm documents/*`)
+
 ### `docbot` shortcut (optional)
 
 If you cloned this repo in a folder other than `~/src` then update the path in the file `docbot` in the root of this repo.
