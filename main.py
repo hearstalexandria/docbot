@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+# main.py
+
+from dotenv import load_dotenv
+import os
+import yaml
+import openai
+
 import sys
 import pathlib
 from langchain.document_loaders import DirectoryLoader
@@ -11,9 +19,18 @@ from langchain.vectorstores import DocArrayInMemorySearch
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import HumanMessage, SystemMessage
 
+load_dotenv()
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
-DOCS_PATH = f"{pathlib.Path(__file__).parent.resolve()}/documents"
-RELEVANCY_CUTOFF = 0.75
+def load_config(file_path):
+    with open(file_path, 'r') as file:
+        config = yaml.safe_load(file)
+    return config
+
+CONFIG_FILE = f"{pathlib.Path(__file__).parent.resolve()}/config.yaml"
+config = load_config(CONFIG_FILE)
+RELEVANCY_CUTOFF = config['relevancy_cutoff']
+DOCS_PATH = config['docs_path']
 
 loader = DirectoryLoader(DOCS_PATH, glob="**/*.*", show_progress=True)
 documents = loader.load()
